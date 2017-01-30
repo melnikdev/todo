@@ -46,9 +46,12 @@ class RestApi
         } else {
             $id = 0;
         }
+
+        $name = htmlspecialchars($_POST['name']);
+
         $sql = "INSERT INTO todo( name, parent) VALUES ( :todoName ,:todoParent)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':todoName', $_POST['name'], \PDO::PARAM_STR);
+        $stmt->bindParam(':todoName', $name, \PDO::PARAM_STR);
         $stmt->bindParam(':todoParent', $id, \PDO::PARAM_INT);
         $stmt->execute();
 
@@ -68,7 +71,8 @@ class RestApi
         $putData = file_get_contents('php://input');
         $putArray = explode("=", $putData);
         if ($putArray[0] == 'name') {
-            $name = $putArray[1];
+            $name = htmlspecialchars($putArray[1]);
+
             $sql = "UPDATE todo SET name = :todoName WHERE id = :todoId";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':todoName', $name, \PDO::PARAM_STR);
