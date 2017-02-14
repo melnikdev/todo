@@ -8,7 +8,7 @@ $url = explode('/', trim($_SERVER['PATH_INFO'], '/'));
 $method = $_SERVER['REQUEST_METHOD'];
 
 //$db = new PDO('sqlite:../../modules/system/html/openserver/adminer/database.db');
-//test
+//te st
 //test site 22
 $db = new PDO('sqlite:dbTodo.db');
 
